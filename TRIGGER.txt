@@ -1,0 +1,3 @@
+chore(ci): trigger workflow - small README note
+
+This commit was created by the assistant to trigger the CI pipeline and validate the recent changes.
