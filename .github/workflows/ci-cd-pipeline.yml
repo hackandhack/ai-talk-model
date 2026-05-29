@@ -21,10 +21,10 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: mvn clean verify
+        run: mvn clean verify --batch-mode
 
-      - name: Package JAR
-        run: mvn package -DskipTests
+      - name: Build JAR
+        run: mvn package -DskipTests --batch-mode
 
   docker:
     needs: build
@@ -45,8 +45,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Login to Hugging Face
-        run: echo ${{ secrets.HF_TOKEN }} | huggingface-cli login --token-stdin
-        if: github.ref == 'refs/heads/main'
+        run: echo ${{ secrets.HF_TOKEN }} | huggingface-cli login --token-stdin || echo 'HF_TOKEN not set, skipping login'
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
@@ -56,5 +55,3 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: |
-            HF_TOKEN=${{ secrets.HF_TOKEN }}
