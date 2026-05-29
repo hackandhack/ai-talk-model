@@ -15,14 +15,26 @@
     </properties>
 
     <dependencies>
-        <!-- Apache OpenNLP for Natural Language Processing -->
+        <!-- Apache OpenNLP -->
         <dependency>
             <groupId>org.apache.opennlp</groupId>
             <artifactId>opennlp-tools</artifactId>
             <version>2.4.0</version>
         </dependency>
 
-        <!-- JUnit for testing -->
+        <!-- LangChain4j for Embeddings and Memory -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+            <version>0.36.0</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-embeddings-all-minilm-l6-v2</artifactId>
+            <version>0.36.0</version>
+        </dependency>
+
+        <!-- JUnit -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
