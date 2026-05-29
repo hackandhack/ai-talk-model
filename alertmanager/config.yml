@@ -1,0 +1,15 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  receiver: 'email-notifications'
+
+receivers:
+  - name: 'email-notifications'
+    email_configs:
+      - to: 'ops@example.com' # <-- Replace with real address
+        from: 'no-reply@example.com'
+        smarthost: 'smtp.gmail.com:587'
+        auth_username: 'your-smtp-user'
+        auth_password: 'your-smtp-password'
+        require_tls: true
