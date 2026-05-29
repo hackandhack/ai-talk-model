@@ -22,9 +22,6 @@ jobs:
       - name: Build and Test
         run: mvn clean verify
 
-      - name: Run Tests
-        run: mvn test
-
   docker:
     needs: build
     runs-on: ubuntu-latest
@@ -32,19 +29,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build with Maven
-        run: mvn clean package -DskipTests
+      - name: Login to Hugging Face
+        run: echo ${{ secrets.HF_TOKEN }} | huggingface-cli login --token-stdin
+        if: github.ref == 'refs/heads/main'
 
       - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
-          push: false
-          tags: hackandhack/ai-talk-model:latest
-          # Note: For real push, add Docker Hub login and secrets
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest, hackandhack/ai-talk-model:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
