@@ -1,0 +1,3 @@
+chore(ci): assistant-trigger commit
+
+This trivial commit was pushed by the assistant to trigger the CI/CD pipeline. It does not change application behavior.
